@@ -25,7 +25,7 @@ spec:
     - name: fakeLoadTag
       value: "0.2-load"
     - name: trainHostPath
-      value: "/home/phajder/train"
+      value: "/home/phajder/datasets"
     - name: checkpointsHostPath
       value: "/home/phajder/checkpoints"
     - name: modelsHostPath
