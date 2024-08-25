@@ -1,0 +1,38 @@
+# Default values for llama-cpp-python.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+destination:
+  server: 'https://kubernetes.default.svc'
+
+image:
+  repository: phajder/llama-cpp-ph
+  tag: 0.1-cuda
+  pullPolicy: IfNotPresent
+  tag: 0.1-cuda
+
+env:
+  mountPath: /app/models
+  modelFile: llama-2-7b.Q4_K_M.gguf
+  modelHostPath: /home/phajder/models/llama-2-7b-quantized
+  gpuLayers: -1
+  chatFormat: chatml
+
+podLabels: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+
+resources:
+  limits:
+    nvidia.com/gpu: 1
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

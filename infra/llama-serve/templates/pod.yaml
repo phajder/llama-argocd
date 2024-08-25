@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "llama-serve.fullname" . }}
+  labels:
+    {{- include "llama-serve.labels" . | nindent 4 }}
+    {{- with .Values.podLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  restartPolicy: OnFailure
+  runtimeClassName: nvidia
+  containers:
+    - name: {{ .Chart.Name }}
+      image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+      imagePullPolicy: {{ .Values.image.pullPolicy }}
+      command: [ "python3", "-m", "llama_cpp.server" ]
+      ports:
+      - name: web
+        containerPort: {{ .Values.service.port }}
+      resources:
+        {{- toYaml .Values.resources | nindent 8 }}
+      volumeMounts:
+        - name: models
+          mountPath: {{ .Values.env.mountPath }}
+          readOnly: true
+      env:
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: all
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: all
+        - name: MODEL
+          value: "{{ .Values.env.mountPath }}/{{ .Values.env.modelFile }}"
+        - name: N_GPU_LAYERS
+          value: "{{ .Values.env.gpuLayers }}"
+        - name: HOST
+          value: 0.0.0.0
+        - name: PORT
+          value: "{{ .Values.service.port }}"
+        - name: CHAT_FORMAT
+          value: {{ .Values.env.chatFormat }}
+  volumes:
+    - name: models
+      hostPath:
+        path: {{ .Values.env.modelHostPath }}
