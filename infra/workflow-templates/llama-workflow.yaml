@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: llama-workflow
+spec:
+  entrypoint: llama-workflow
+  arguments:
+    parameters:
+    - name: logDir
+      value: "/var/log"
+    - name: trainThreshold
+      value: "1.0"
+    - name: trainImage
+      value: ""
+    - name: trainTag
+      value: ""
+    - name: evalImage
+      value: ""
+    - name: evalTag
+      value: ""  
+  templates:
+  - name: llama-workflow
+    dag:
+      tasks:
+      - name: train
+        templateRef:
+          name: train-job
+          template: main
+      - name: eval
+        templateRef:
+          name: eval-job
+          template: main
+        depends: train
+      - name: serve
+        templateRef:
+          name: serve-deployment
+          template: main
+        depends: eval
+      - name: delete-app
+        template: delete-app
+        depends: (serve.Failed)
+
+  - name: delete-app
+    resource:
+      action: delete
+      manifest: |
+        apiVersion: argoproj.io/v1alpha1
+        kind: Application
+        metadata:
+          name: llama-serve
+          namespace: argocd

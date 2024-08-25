@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: llama-workflow-
+  namespace: argo
+  labels:
+    workflows.argoproj.io/workflow-template: llama-workflow
+spec:
+  arguments:
+    parameters:
+    - name: logDir
+      value: "/var/log"
+    - name: trainThreshold
+      value: "1.0"
+    - name: trainImage
+      value: "phajder/llama2-ph"
+    - name: trainTag
+      value: "0.1-train"
+    - name: evalImage
+      value: "phajder/llama2-ph"
+    - name: evalTag
+      value: "0.1-eval"
+  workflowTemplateRef:
+    name: llama-workflow

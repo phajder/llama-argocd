@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: serve-deployment
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    resource:
+      action: create
+      successCondition: status.health.status == Healthy
+      failureCondition: status.health.status == Degraded
+      manifest: |
+        apiVersion: argoproj.io/v1alpha1
+        kind: Application
+        metadata:
+          name: llama-serve
+          namespace: argocd
+          finalizers:
+          - resources-finalizer.argocd.argoproj.io
+        spec:
+          destination:
+            namespace: llama-serve
+            server: https://kubernetes.default.svc
+          project: default
+          source:
+            path: infra/llama-serve
+            repoURL: https://github.com/phajder/llama-argocd
+            targetRevision: HEAD
+          syncPolicy:
+            automated:
+              prune: true
+              selfHeal: true
+            syncOptions:
+              - PrunePropagationPolicy=background
+              - PruneLast=true
+              - CreateNamespace=true

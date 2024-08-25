@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: train-job
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    container:
+      image: "{{workflow.parameters.trainImage}}:{{workflow.parameters.trainTag}}"
+      imagePullPolicy: Always
+      env:
+      - name: LOG_PATH
+        value: "{{workflow.parameters.logDir}}"
+      - name: TRAIN_THRESHOLD
+        value: "{{workflow.parameters.trainThreshold}}"

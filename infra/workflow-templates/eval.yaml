@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: eval-job
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    container:
+      image: "{{workflow.parameters.evalImage}}:{{workflow.parameters.evalTag}}"
+      imagePullPolicy: Always
+      env:
+      - name: LOG_PATH
+        value: "{{workflow.parameters.logDir}}"
