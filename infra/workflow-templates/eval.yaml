@@ -31,6 +31,6 @@ spec:
         value: "{{workflows.parameters.modelsPath}}"
     outputs:
       parameters:
-      - name: modelFilename
+      - name: result
         valueFrom:
           path: /tmp/output.txt
