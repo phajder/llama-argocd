@@ -53,7 +53,7 @@ spec:
           - name: modelFilename
             value: "{{tasks.eval.outputs.parameters.result}}"
         templateRef:
-          name: fake-load
+          name: fake-load-job
           template: main
         depends: eval
       - name: serve
