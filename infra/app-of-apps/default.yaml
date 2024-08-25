@@ -8,7 +8,7 @@ spec:
     namespace: argocd
     server: "https://kubernetes.default.svc"
   source:
-    path: bootstrap/apps
+    path: infra/apps
     repoURL: "https://github.com/phajder/llama-argocd"
     targetRevision: HEAD
   project: default
