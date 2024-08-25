@@ -3,13 +3,13 @@ kind: WorkflowTemplate
 metadata:
   name: eval-job
 spec:
-  volumes:
-  - name: checkpoints
-    hostPath:
-      path: "{{workflow.parameters.checkpointsHostPath}}"
-  - name: models
-    hostPath:
-      path: "{{workflow.parameters.modelsHostPath}}"
+  # volumes:
+  # - name: checkpoints
+  #   hostPath:
+  #     path: "{{workflow.parameters.checkpointsHostPath}}"
+  # - name: models
+  #   hostPath:
+  #     path: "{{workflow.parameters.modelsHostPath}}"
   entrypoint: main
   templates:
   - name: main
