@@ -3,6 +3,16 @@ kind: WorkflowTemplate
 metadata:
   name: llama-workflow
 spec:
+  volumes:
+  - name: dataset
+    hostPath:
+      path: "{{workflow.parameters.datasetHostPath}}"
+  - name: checkpoints
+    hostPath:
+      path: "{{workflow.parameters.checkpointsHostPath}}"
+  - name: models
+    hostPath:
+      path: "{{workflow.parameters.modelsHostPath}}"
   entrypoint: llama-workflow
   arguments:
     parameters:
