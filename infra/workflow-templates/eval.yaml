@@ -21,7 +21,7 @@ spec:
         mountPath: "{{workflow.parameters.checkpointsPath}}"
         readOnly: true
       - name: models
-        mountPath: "{{workflows.parameters.modelsPath}}"
+        mountPath: "{{workflow.parameters.modelsPath}}"
       env:
       - name: LOG_PATH
         value: "{{workflow.parameters.logDir}}"
