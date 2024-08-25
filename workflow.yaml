@@ -15,10 +15,20 @@ spec:
     - name: trainImage
       value: "phajder/llama2-ph"
     - name: trainTag
-      value: "0.1-train"
+      value: "0.2-train"
     - name: evalImage
       value: "phajder/llama2-ph"
     - name: evalTag
-      value: "0.1-eval"
+      value: "0.2-eval"
+    - name: fakeLoadImage
+      value: "phajder/llama2-ph"
+    - name: fakeLoadTag
+      value: "0.2-load"
+    - name: trainHostPath
+      value: "/home/phajder/train"
+    - name: checkpointsHostPath
+      value: "/home/phajder/checkpoints"
+    - name: modelsHostPath
+      value: "/home/phajder/models"
   workflowTemplateRef:
     name: llama-workflow

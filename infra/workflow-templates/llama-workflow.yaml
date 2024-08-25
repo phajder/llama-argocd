@@ -10,6 +10,12 @@ spec:
       value: "/var/log"
     - name: trainThreshold
       value: "1.0"
+    - name: datasetPath # Dataset path inside container
+      value: "/app/dataset"
+    - name: checkpointsPath # Checkpoints path inside container
+      value: "/app/checkpoints"
+    - name: modelsPath # Models path inside container
+      value: "/app/models"
     - name: trainImage
       value: ""
     - name: trainTag
@@ -18,6 +24,16 @@ spec:
       value: ""
     - name: evalTag
       value: ""  
+    - name: fakeLoadImage
+      value: ""
+    - name: fakeLoadTag
+      value: ""
+    - name: datasetHostPath
+      value: ""
+    - name: checkpointsHostPath
+      value: ""
+    - name: modelsHostPath
+      value: ""
   templates:
   - name: llama-workflow
     dag:
@@ -31,11 +47,20 @@ spec:
           name: eval-job
           template: main
         depends: train
+      - name: fake-load
+        arguments:
+          parameters:
+          - name: modelFilename
+            value: "{{tasks.eval.outputs.parameters.result}}"
+        templateRef:
+          name: fake-load
+          template: main
+        depends: eval
       - name: serve
         templateRef:
           name: serve-deployment
           template: main
-        depends: eval
+        depends: fake-load
       - name: delete-app
         template: delete-app
         depends: (serve.Failed)

@@ -3,14 +3,31 @@ kind: WorkflowTemplate
 metadata:
   name: train-job
 spec:
+  volumes:
+  - name: dataset
+    hostPath:
+      path: "{{workflow.parameters.datasetHostPath}}"
+  - name: checkpoints
+    hostPath:
+      path: "{{workflow.parameters.checkpointsHostPath}}"
   entrypoint: main
   templates:
   - name: main
     container:
       image: "{{workflow.parameters.trainImage}}:{{workflow.parameters.trainTag}}"
       imagePullPolicy: Always
+      volumeMounts:
+      - name: dataset
+        mountPath: "{{workflow.parameters.datasetPath}}"
+        readOnly: true
+      - name: checkpoints
+        mountPath: "{{workflow.parameters.checkpointsPath}}"
       env:
       - name: LOG_PATH
         value: "{{workflow.parameters.logDir}}"
+      - name: DATASET_PATH
+        value: "{{workflow.parameters.datasetPath}}"
+      - name: CHECKPOINTS_PATH
+        value: "{{workflow.parameters.checkpointsPath}}"
       - name: TRAIN_THRESHOLD
         value: "{{workflow.parameters.trainThreshold}}"

@@ -3,12 +3,34 @@ kind: WorkflowTemplate
 metadata:
   name: eval-job
 spec:
+  volumes:
+  - name: checkpoints
+    hostPath:
+      path: "{{workflow.parameters.checkpointsHostPath}}"
+  - name: models
+    hostPath:
+      path: "{{workflow.parameters.modelsHostPath}}"
   entrypoint: main
   templates:
   - name: main
     container:
       image: "{{workflow.parameters.evalImage}}:{{workflow.parameters.evalTag}}"
       imagePullPolicy: Always
+      volumeMounts:
+      - name: checkpoints
+        mountPath: "{{workflow.parameters.checkpointsPath}}"
+        readOnly: true
+      - name: models
+        mountPath: "{{workflows.parameters.modelsPath}}"
       env:
       - name: LOG_PATH
         value: "{{workflow.parameters.logDir}}"
+      - name: CHECKPOINTS_PATH
+        value: "{{workflow.parameters.checkpointsPath}}"
+      - name: MODELS_PATH
+        value: "{{workflows.parameters.modelsPath}}"
+    outputs:
+      parameters:
+      - name: modelFilename
+        valueFrom:
+          path: /tmp/output.txt
