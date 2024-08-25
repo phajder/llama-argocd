@@ -3,10 +3,6 @@ kind: WorkflowTemplate
 metadata:
   name: fake-load-job
 spec:
-  # volumes:
-  # - name: models
-  #   hostPath:
-  #     path: "{{workflow.parameters.modelsHostPath}}"
   entrypoint: main
   templates:
   - name: main

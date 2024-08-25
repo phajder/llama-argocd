@@ -3,13 +3,6 @@ kind: WorkflowTemplate
 metadata:
   name: train-job
 spec:
-  # volumes:
-  # - name: dataset
-  #   hostPath:
-  #     path: "{{workflow.parameters.datasetHostPath}}"
-  # - name: checkpoints
-  #   hostPath:
-  #     path: "{{workflow.parameters.checkpointsHostPath}}"
   entrypoint: main
   templates:
   - name: main

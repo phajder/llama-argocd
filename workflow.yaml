@@ -6,22 +6,8 @@ metadata:
   labels:
     workflows.argoproj.io/workflow-template: llama-workflow
 spec:
-  volumes:
-  - name: dataset
-    hostPath:
-      path: /home/phajder/datasets
-  - name: checkpoints
-    hostPath:
-      path: /home/phajder/checkpoints
-  - name: models
-    hostPath:
-      path: /home/phajder/models
   arguments:
     parameters:
-    - name: logDir
-      value: "/var/log"
-    - name: trainThreshold
-      value: "1.0"
     - name: trainImage
       value: "phajder/llama2-ph"
     - name: trainTag
@@ -34,7 +20,7 @@ spec:
       value: "phajder/llama2-ph"
     - name: fakeLoadTag
       value: "0.2-load"
-    - name: trainHostPath
+    - name: datasetHostPath
       value: "/home/phajder/datasets"
     - name: checkpointsHostPath
       value: "/home/phajder/checkpoints"
