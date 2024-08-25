@@ -16,6 +16,7 @@ spec:
     container:
       image: "{{workflow.parameters.fakeLoadImage}}:{{workflow.parameters.fakeLoadTag}}"
       imagePullPolicy: Always
+      volumeMounts:
       - name: models
         mountPath: "{{workflow.parameters.modelsPath}}"
       env:
