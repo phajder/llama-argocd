@@ -28,7 +28,7 @@ spec:
       - name: CHECKPOINTS_PATH
         value: "{{workflow.parameters.checkpointsPath}}"
       - name: MODELS_PATH
-        value: "{{workflows.parameters.modelsPath}}"
+        value: "{{workflow.parameters.modelsPath}}"
     outputs:
       parameters:
       - name: result

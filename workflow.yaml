@@ -6,6 +6,16 @@ metadata:
   labels:
     workflows.argoproj.io/workflow-template: llama-workflow
 spec:
+  volumes:
+  - name: dataset
+    hostPath:
+      path: /home/phajder/datasets
+  - name: checkpoints
+    hostPath:
+      path: /home/phajder/checkpoints
+  - name: models
+    hostPath:
+      path: /home/phajder/models
   arguments:
     parameters:
     - name: logDir
