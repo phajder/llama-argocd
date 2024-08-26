@@ -10,10 +10,12 @@
 
 ## Main assumptions
 * Ingresses are supposed to work only with my local setup due to custom proxy and SSL/TLS setup. On another setup, host paths must be changed to reflect actual setup.
+* NFS mounts refer to a local truenas server.
 * Security is of secondary matter. RBAC-related configs and user/groups for container executions are minimal but not as restrictive as they should be.
 * A lot of configuration of ArgoCD and Argo Workflows is set up to quickest deployment possible. In normal conditions, configs should be specified as per-cluster-reqs.
 * Helm charts used for ArgoCD Apps are fixed - ArgoCD does not manage it's parameters. However, it is possible to specify chart values while preparing Application descriptor.
 * ML applications **aren't** actual ML applications. They just imitate required behavior. If required, I can explain, how does it look like in Tensorflow
+* For CD testing, [gh repo](https://github.com/phajder/llama-argocd) was created.
 
 ## Prerequisites
 1. Prepare [ArgoCD deployment](./infra/argocd/) with Kustomization.
@@ -43,7 +45,7 @@ Besides previously described apps (ArgoCD and Argo Workflows) there is two more 
 Helm chart prepared in [task 1](/task-1/README.md) was used to deploy main application. There are few changes, mainly related to scaling the application using [Deployment controller](./infra/llama-serve/templates/deployment.yaml). Due to the fact, that on my infrastructure there is only one GPU without MIG support, there is also small change to [_resources_ section](./infra/llama-serve/templates/deployment.yaml#L29) in container specs and related env variables.
 
 ## Preparation of ML applications
-This repo's destiny is to serve only infrastructure configuration. The actual code of the applications is in separate repo. Or should be in normal case - for readability everything is stored in a single repo. This follows [ArgoCD good practices](https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#separating-config-vs-source-code-repositories). More detailed description is provided in [app readme](/app/README.md).
+This repo's destiny is to serve only infrastructure configuration. The actual code of the applications is in separate repo. Or should be in normal case - for readability everything is stored in a single repo. This follows [ArgoCD good practices](https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#separating-config-vs-source-code-repositories). More detailed description is provided in app readme.
 
 ## Workflow templates
 For pipeline execution, ArgoCD workflows were selected. In order to prepare requested pipeline, several WorkflowTemplates were created. All of them are in [workflow-templates directory](./infra/workflow-templates/). To skip the requirement for pushing diffs to the repo, [Kustomization file](./infra/workflow-templates/kustomization.yaml) was prepared. There are 8 workflow templates:
