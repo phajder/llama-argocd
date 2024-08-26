@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: notify-failure
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    inputs:
+      parameters:
+      - name: message
+    container:
+      image: curlimages/curl
+      command: [sh, -c]
+      args: [ "curl -X POST -H 'Content-Type: application/json' -d '{\"content\":\"{{inputs.parameters.message}}\"}' https://discordapp.com/api/webhooks/$WEBHOOK" ]
+      env:
+      - name: WEBHOOK
+        valueFrom:
+          secretKeyRef:
+            name: notify-secret
+            key: webhook

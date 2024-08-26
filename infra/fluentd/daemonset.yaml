@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  labels:
+    k8s-app: fluentd-logging
+spec:
+  selector:
+    matchLabels:
+      name: fluentd
+  template:
+    metadata:
+      labels:
+        name: fluentd
+    spec:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+      containers:
+      - name: fluentd
+        image: fluent/fluentd:v1.12-debian-1
+        env:
+          - name: FLUENTD_ARGS
+            value: "--no-supervisor -q"
+        volumeMounts:
+          - name: config-volume
+            mountPath: /fluentd/etc
+          - name: log-volume
+            mountPath: /fluentd/log
+          - name: storage-volume
+            mountPath: /fluentd/data
+      volumes:
+        - name: config-volume
+          configMap:
+            name: fluentd-config
+        - name: log-volume
+          hostPath:
+            path: /var/log
+        - name: storage-volume
+          hostPath:
+            path: /home/phajder/fluentd

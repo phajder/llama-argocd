@@ -10,6 +10,8 @@ spec:
       image: "{{workflow.parameters.trainImage}}:{{workflow.parameters.trainTag}}"
       imagePullPolicy: Always
       volumeMounts:
+      - name: log
+        mountPath: "{{workflow.parameters.logDir}}"
       - name: dataset
         mountPath: "{{workflow.parameters.datasetPath}}"
         readOnly: true

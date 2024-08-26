@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: upload-model
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    inputs:
+      parameters:
+      - name: modelFilename
+    script:
+      image: busybox
+      command: [ "sh" ]
+      source: |
+        #!/bin/sh
+        echo "Copying model to NFS share..."
+        cp /mnt/local/{{inputs.parameters.modelFilename}} /mnt/nfs/
+        echo "Model successfully copied!"
+      volumeMounts:
+      - name: nfs-models
+        mountPath: /mnt/nfs
+      - name: models
+        mountPath: /mnt/local

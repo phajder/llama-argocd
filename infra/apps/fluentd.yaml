@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: llama-workflow-templates
+  name: fluentd
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,7 +10,7 @@ spec:
     namespace: argo
     server: "https://kubernetes.default.svc"
   source:
-    path: infra/workflow-templates
+    path: infra/fluentd
     repoURL: "https://github.com/phajder/llama-argocd"
     targetRevision: HEAD
   project: default

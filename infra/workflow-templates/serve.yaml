@@ -6,6 +6,9 @@ spec:
   entrypoint: main
   templates:
   - name: main
+    inputs:
+      parameters:
+      - name: modelName
     resource:
       action: create
       successCondition: status.health.status == Healthy
@@ -32,6 +35,6 @@ spec:
               prune: true
               selfHeal: true
             syncOptions:
-              - PrunePropagationPolicy=background
-              - PruneLast=true
-              - CreateNamespace=true
+            - PrunePropagationPolicy=background
+            - PruneLast=true
+            - CreateNamespace=true

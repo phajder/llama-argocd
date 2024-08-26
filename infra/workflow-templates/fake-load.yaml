@@ -13,6 +13,8 @@ spec:
       image: "{{workflow.parameters.fakeLoadImage}}:{{workflow.parameters.fakeLoadTag}}"
       imagePullPolicy: Always
       volumeMounts:
+      - name: log
+        mountPath: "{{workflow.parameters.logDir}}"
       - name: models
         mountPath: "{{workflow.parameters.modelsPath}}"
       env:

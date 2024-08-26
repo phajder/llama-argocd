@@ -4,10 +4,13 @@ metadata:
   generateName: llama-workflow-
   namespace: argo
   labels:
+    workflows.argoproj.io/workflow: "true"
     workflows.argoproj.io/workflow-template: llama-workflow
 spec:
   arguments:
     parameters:
+    - name: trainThreshold
+      value: "1.0"
     - name: trainImage
       value: "phajder/llama2-ph"
     - name: trainTag

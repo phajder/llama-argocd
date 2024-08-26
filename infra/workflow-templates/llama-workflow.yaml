@@ -4,6 +4,17 @@ metadata:
   name: llama-workflow
 spec:
   volumes:
+  - name: log
+    hostPath:
+      path: /var/log
+  - name: nfs-dataset
+    nfs:
+      server: truenas.lan
+      path: /mnt/main/train
+  - name: nfs-models
+    nfs:
+      server: truenas.lan
+      path: /mnt/main/models
   - name: dataset
     hostPath:
       path: "{{workflow.parameters.datasetHostPath}}"
@@ -20,6 +31,8 @@ spec:
       value: "/var/log"
     - name: trainThreshold
       value: "1.0"
+    - name: datasetFilename # Dataset name
+      value: dataset.txt
     - name: datasetPath # Dataset path inside container
       value: "/app/dataset"
     - name: checkpointsPath # Checkpoints path inside container
@@ -44,19 +57,47 @@ spec:
       value: ""
     - name: modelsHostPath
       value: ""
+    - name: discordWebhook
+      value: ""
   templates:
   - name: llama-workflow
     dag:
       tasks:
+      - name: fetch-dataset
+        templateRef:
+          name: fetch-dataset
+          template: main
       - name: train
         templateRef:
           name: train-job
           template: main
+        depends: fetch-dataset
+      - name: notify-failure
+        arguments:
+          parameters:
+            - name: message
+              value: "Training failed!"
+        templateRef:
+          name: notify-failure
+          template: main
+        depends: (train.Failed)
+      - name: fail-after-train
+        template: fail-workflow
+        depends: notify-failure
       - name: eval
         templateRef:
           name: eval-job
           template: main
         depends: train
+      - name: upload-model
+        arguments:
+          parameters:
+          - name: modelFilename
+            value: "{{tasks.eval.outputs.parameters.result}}"
+        templateRef:
+          name: upload-model
+          template: main
+        depends: eval
       - name: fake-load
         arguments:
           parameters:
@@ -67,6 +108,10 @@ spec:
           template: main
         depends: eval
       - name: serve
+        arguments:
+          parameters:
+          - name: modelName
+            value: "{{tasks.eval.outputs.parameters.result}}"
         templateRef:
           name: serve-deployment
           template: main
@@ -84,3 +129,8 @@ spec:
         metadata:
           name: llama-serve
           namespace: argocd
+  - name: fail-workflow
+    container:
+      image: busybox
+      command: [ "sh", "-c" ]
+      args: [ "exit 1" ]

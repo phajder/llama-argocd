@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: fetch-dataset
+spec:
+  entrypoint: main
+  templates:
+  - name: main
+    script:
+      image: busybox
+      command: [ "sh" ]
+      source: |
+        #!/bin/sh
+        if [ ! -f /mnt/local/{{workflow.parameters.datasetFilename}} ]; then
+          echo "Dataset does not exist, copying from NFS..."
+          cp /mnt/nfs/{{workflow.parameters.datasetFilename}} /mnt/local/{{workflow.parameters.datasetFilename}}
+          echo "Datased successfully copied!"
+        else
+          echo "File already exists on local path."
+        fi
+      volumeMounts:
+      - name: nfs-dataset
+        mountPath: /mnt/nfs
+      - name: dataset
+        mountPath: /mnt/local

@@ -15,7 +15,9 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      {{ if .Values.gpu.enabled }}
       runtimeClassName: nvidia
+      {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
@@ -24,25 +26,29 @@ spec:
           ports:
           - name: web
             containerPort: {{ .Values.service.port }}
+          {{ if .Values.gpu.enabled }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{ end }}
           volumeMounts:
             - name: models
               mountPath: {{ .Values.env.mountPath }}
               readOnly: true
           env:
+            {{ if .Values.gpu.enabled }}
             - name: NVIDIA_VISIBLE_DEVICES
               value: all
             - name: NVIDIA_DRIVER_CAPABILITIES
               value: all
-            - name: MODEL
-              value: "{{ .Values.env.mountPath }}/{{ .Values.env.modelFile }}"
             - name: N_GPU_LAYERS
-              value: "{{ .Values.env.gpuLayers }}"
+              value: "{{ .Values.gpu.gpuLayers }}"
+            {{ end }}
             - name: HOST
               value: 0.0.0.0
             - name: PORT
               value: "{{ .Values.service.port }}"
+            - name: MODEL
+              value: "{{ .Values.env.mountPath }}/{{ .Values.env.modelFile }}"
             - name: CHAT_FORMAT
               value: {{ .Values.env.chatFormat }}
       volumes:

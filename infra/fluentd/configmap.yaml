@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+data:
+  fluent.conf: |
+    <source>
+      @type tail
+      path /fluentd/log/*.log
+      pos_file /fluentd/log/fluentd.pos
+      tag kube.*
+      <parse>
+        @type regexp
+        expression /^(?<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}) \[(?<level>[A-Z]+)\] (?<message>.*)$/
+        time_format %Y-%m-%d %H:%M:%S,%L
+      </parse>
+    </source>
+
+    <match kube.**>
+      @type file
+      path /fluentd/data/k8s_logs
+      <buffer>
+        @type file
+        path /fluentd/data/buffer
+        flush_mode interval
+        flush_interval 10s
+        flush_at_shutdown true
+      </buffer>
+    </match>

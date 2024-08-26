@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicas: 1
+replicas: 3
 
 destination:
   server: 'https://kubernetes.default.svc'
@@ -13,11 +13,14 @@ image:
   pullPolicy: IfNotPresent
   tag: 0.1-cuda
 
+gpu:
+  enabled: false
+  gpuLayers: -1
+
 env:
   mountPath: /app/models
   modelFile: llama-2-7b.Q4_K_M.gguf
   modelHostPath: /home/phajder/models/llama-2-7b-quantized
-  gpuLayers: -1
   chatFormat: chatml
 
 podLabels: {}
