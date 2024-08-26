@@ -5,3 +5,9 @@ resources:
 - https://github.com/argoproj/argo-workflows/releases/download/v3.5.10/quick-start-minimal.yaml
 - rolebinding.yaml
 - namespace.yaml
+- ingress.yaml
+patches:
+- path: argo-server-deployment.yaml
+  target:
+    kind: Deployment
+    name: argo-server

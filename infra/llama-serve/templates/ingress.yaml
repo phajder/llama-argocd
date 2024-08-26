@@ -5,7 +5,8 @@ metadata:
   name: {{ include "llama-serve.fullname" . }}
 spec:
   rules:
-    - http:
+    - host: chat-cherry.local.retrolab.phd
+      http:
         paths:
           - path: /
             pathType: Prefix

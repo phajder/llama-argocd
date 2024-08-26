@@ -4,3 +4,9 @@ namespace: argocd
 resources:
 - github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.12.2
 - namespace.yaml
+- ingress.yaml
+patches:
+- path: argocd-cmd-params-cm.yaml
+  target:
+    kind: ConfigMap
+    name: argocd-cmd-params-cm
