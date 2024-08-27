@@ -11,3 +11,13 @@ spec:
         - --auth-mode=server
         - --secure=false
         name: argo-server
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /
+            port: 2746
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+          periodSeconds: 20
+          successThreshold: 1
+          failureThreshold: 3
