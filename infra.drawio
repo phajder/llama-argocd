@@ -1,0 +1,80 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
+  <diagram name="infra" id="WrcK-ROZhFGGmlRLD394">
+    <mxGraphModel dx="401" dy="280" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-3" value="k3s cluster" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="240" y="240" width="390" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="C0C0u4NWgE-mwiN_am5E-1" target="C0C0u4NWgE-mwiN_am5E-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-1" value="External&#xa;proxy" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png;" parent="1" vertex="1">
+          <mxGeometry x="99" y="357" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-4" value="Ingress&#xa;controller" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://raw.githubusercontent.com/docker-library/docs/a6cc2c5f4bc6658168f2a0abbb0307acaefff80e/traefik/logo.png;" parent="1" vertex="1">
+          <mxGeometry x="255" y="356.51" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.005;entryY=0.63;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="C0C0u4NWgE-mwiN_am5E-4" target="C0C0u4NWgE-mwiN_am5E-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="391" />
+              <mxPoint x="340" y="506" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.005;entryY=0.63;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="C0C0u4NWgE-mwiN_am5E-4" target="C0C0u4NWgE-mwiN_am5E-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="392" />
+              <mxPoint x="340" y="299" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.025;entryY=0.544;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="C0C0u4NWgE-mwiN_am5E-4" target="C0C0u4NWgE-mwiN_am5E-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-20" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;verticalAlign=bottom;" parent="1" vertex="1">
+          <mxGeometry x="370" y="250" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-5" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://luktom.net/wordpress/wp-content/uploads/2019/11/argo.png;clipPath=inset(5.67% 20.67% 5.33% 19.67%);" parent="1" vertex="1">
+          <mxGeometry x="496" y="250" width="57.38" height="85.59" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="C0C0u4NWgE-mwiN_am5E-8" target="C0C0u4NWgE-mwiN_am5E-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-8" value="argocd" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=svc" parent="1" vertex="1">
+          <mxGeometry x="388" y="268.79999999999995" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-21" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;verticalAlign=bottom;" parent="1" vertex="1">
+          <mxGeometry x="370" y="350" width="240" height="91.54" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-7" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.containerssimplified.com/wp-content/uploads/2023/07/argoworkflows-1.jpg;clipPath=inset(28.11% 23.67% 6.8% 24%);" parent="1" vertex="1">
+          <mxGeometry x="496" y="351.54" width="107" height="74.96611249124147" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="C0C0u4NWgE-mwiN_am5E-9" target="C0C0u4NWgE-mwiN_am5E-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-9" value="argo" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=svc" parent="1" vertex="1">
+          <mxGeometry x="389" y="365.51" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-23" value="" style="group;verticalAlign=bottom;" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="370" y="454.5" width="200" height="105.5" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-22" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;" parent="C0C0u4NWgE-mwiN_am5E-23" vertex="1">
+          <mxGeometry width="200" height="105.5" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="C0C0u4NWgE-mwiN_am5E-23" source="C0C0u4NWgE-mwiN_am5E-10" target="C0C0u4NWgE-mwiN_am5E-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-10" value="chat" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=svc" parent="C0C0u4NWgE-mwiN_am5E-23" vertex="1">
+          <mxGeometry x="18" y="21" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="C0C0u4NWgE-mwiN_am5E-12" value="llama-serve" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn-icons-png.flaticon.com/512/10838/10838328.png;" parent="C0C0u4NWgE-mwiN_am5E-23" vertex="1">
+          <mxGeometry x="126" y="9.5" width="71" height="71" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

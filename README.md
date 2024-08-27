@@ -17,6 +17,9 @@
 * ML applications **aren't** actual ML applications. They just imitate required behavior. If required, I can explain, how does it look like in Tensorflow
 * For CD testing, [gh repo](https://github.com/phajder/llama-argocd) was created.
 
+## Architecture
+![infra](./images/infra.svg)
+
 ## Prerequisites
 1. Prepare [ArgoCD deployment](./infra/argocd/) with Kustomization.
 2. Prepare [Argo Workflows](./infra/argo-workflows/), optionally with Kustomization (for local testing purposes).
